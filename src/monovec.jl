@@ -22,6 +22,26 @@ Springer Science & Business Media, **2013**.
 """
 abstract type AbstractGradedMonomialOrdering <: AbstractMonomialOrdering end
 
+_deg(exponents) = sum(exponents)
+_deg(mono::AbstractMonomial) = degree(mono)
+
+"""
+    compare(a, b, order::AbstractMonomialOrdering)
+
+Returns a negative number if `a < b`, a positive number if `a > b` and zero if `a == b`.
+"""
+function compare end
+
+function compare(a, b, order::AbstractGradedMonomialOrdering)
+    deg_a = _deg(a)
+    deg_b = _deg(b)
+    if deg_a == deg_b
+        return compare(a, b, non_graded(order))
+    else
+        return deg_a - deg_b
+    end
+end
+
 """
     struct LexOrder <: AbstractMonomialOrdering end
 
