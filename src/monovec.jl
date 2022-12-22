@@ -1,5 +1,17 @@
 export monovec, monovectype, emptymonovec, sortmonovec, mergemonovec
 
+"""
+    abstract type AbstractMonomialOrdering end
+
+Abstract type for monomial ordering as defined in [CLO15, Definition 2.2.1 p. 55]
+
+
+[CLO15] Ideals, Varieties, and Algorithms
+Cox, Little and O'Shea, Fourth edition
+"""
+abstract type AbstractMonomialOrdering end
+struct GradedReverseLexicographicOrdering <: Abstra
+
 monomials(v::AbstractVariable, degree, args...) = monomials((v,), degree, args...)
 
 """
