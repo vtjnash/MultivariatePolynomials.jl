@@ -3,14 +3,106 @@ export monovec, monovectype, emptymonovec, sortmonovec, mergemonovec
 """
     abstract type AbstractMonomialOrdering end
 
-Abstract type for monomial ordering as defined in [CLO15, Definition 2.2.1 p. 55]
+Abstract type for monomial ordering as defined in [CLO15, Definition 2.2.1, p. 55]
 
-
-[CLO15] Ideals, Varieties, and Algorithms
-Cox, Little and O'Shea, Fourth edition
+[CLO13] Cox, D., Little, J., & OShea, D.
+*Ideals, varieties, and algorithms: an introduction to computational algebraic geometry and commutative algebra*.
+Springer Science & Business Media, **2013**.
 """
 abstract type AbstractMonomialOrdering end
-struct GradedReverseLexicographicOrdering <: Abstra
+
+"""
+    abstract type AbstractGradedMonomialOrdering end
+
+Abstract type for monomial ordering for which `a < b` when `degree(a) < degree(b)`.
+
+[CLO13] Cox, D., Little, J., & OShea, D.
+*Ideals, varieties, and algorithms: an introduction to computational algebraic geometry and commutative algebra*.
+Springer Science & Business Media, **2013**.
+"""
+abstract type AbstractGradedMonomialOrdering <: AbstractMonomialOrdering end
+
+"""
+    struct LexOrder <: AbstractMonomialOrdering end
+
+Lexicographic (Lex for short) Order often abbreviated as *lex* order as defined in [CLO15, Definition 2.2.3, p. 56]
+
+See [`GradedLexOrder`](@ref) for the graded version.
+
+[CLO13] Cox, D., Little, J., & OShea, D.
+*Ideals, varieties, and algorithms: an introduction to computational algebraic geometry and commutative algebra*.
+Springer Science & Business Media, **2013**.
+"""
+struct LexOrder <: AbstractMonomialOrdering end
+
+"""
+    struct GradedLexOrder <: AbstractGradedMonomialOrdering end
+
+Graded Lex Order often abbreviated *grlex* order as defined in [CLO15, Definition 2.2.3, p. 56]
+
+See [`LexOrder`](@ref) for the non-graded version.
+
+[CLO13] Cox, D., Little, J., & OShea, D.
+*Ideals, varieties, and algorithms: an introduction to computational algebraic geometry and commutative algebra*.
+Springer Science & Business Media, **2013**.
+"""
+struct GradedLexOrder <: AbstractGradedMonomialOrdering end
+
+"""
+    struct InverseLexOrder <: AbstractMonomialOrdering end
+
+Inverse Lex Order defined in [CLO15, Exercise 2.2.6, p. 61] where it is abbreviated as *invlex*.
+It corresponds to [`LexOrder`](@ref) but with the variables in reverse order.
+
+See [`GradedInverseLexOrder`](@ref) for the graded version.
+
+[CLO13] Cox, D., Little, J., & OShea, D.
+*Ideals, varieties, and algorithms: an introduction to computational algebraic geometry and commutative algebra*.
+Springer Science & Business Media, **2013**.
+"""
+struct InverseLexOrder <: AbstractMonomialOrdering end
+
+"""
+    struct GradedInverseLexOrder <: AbstractGradedMonomialOrdering end
+
+Graded Inverse Lex Order that can be abbreviated as *grinvlex* order.
+It is defined in [BDD13, Definition 2.1] where it is called *Graded xel order*.
+
+See [`InverseLexOrdering`](@ref) for the non-graded version.
+
+[BDD13] Batselier, K., Dreesen, P., & De Moor, B.
+*The geometry of multivariate polynomial division and elimination*.
+SIAM Journal on Matrix Analysis and Applications, 34(1), 102-125, *2013*.
+"""
+struct GradedInverseLexOrder <: AbstractGradedMonomialOrdering end
+
+"""
+    struct ReverseLexOrder <: AbstractMonomialOrdering end
+
+Reverse Lex Order defined in [CLO15, Exercise 2.2.9, p. 61] where it is abbreviated as *rinvlex*.
+It corresponds to the reverse of the [`InverseLexOrder`](@ref), that is,
+`compare(a, b, ReverseLexOrder()) = -compare(a, b, InverseLexOrder)`.
+
+See [`GradedReverseLexOrder`](@ref) for the graded version.
+
+[CLO13] Cox, D., Little, J., & OShea, D.
+*Ideals, varieties, and algorithms: an introduction to computational algebraic geometry and commutative algebra*.
+Springer Science & Business Media, **2013**.
+"""
+struct ReverseLexOrder <: AbstractMonomialOrdering end
+
+"""
+    struct GradedReverseLexOrder <: AbstractGradedMonomialOrdering end
+
+Graded Reverse Lex Order often abbreviated *grevlex* order as defined in [CLO15, Definition 2.2.6, p. 58]
+
+See [`ReverseLexOrdering`](@ref) for the non-graded version.
+
+[CLO13] Cox, D., Little, J., & OShea, D.
+*Ideals, varieties, and algorithms: an introduction to computational algebraic geometry and commutative algebra*.
+Springer Science & Business Media, **2013**.
+"""
+struct GradedReverseLexOrder <: AbstractGradedMonomialOrdering end
 
 monomials(v::AbstractVariable, degree, args...) = monomials((v,), degree, args...)
 
