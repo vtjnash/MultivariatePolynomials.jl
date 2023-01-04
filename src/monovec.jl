@@ -23,6 +23,7 @@ function compare end
     struct LexOrder <: AbstractMonomialOrdering end
 
 Lexicographic (Lex for short) Order often abbreviated as *lex* order as defined in [CLO15, Definition 2.2.3, p. 56]
+It corresponds to the `Lex` order of Macaulay2.
 
 The [`Graded`](@ref) version is often abbreviated as *grlex* order and is defined in [CLO15, Definition 2.2.5, p. 58]
 
@@ -83,11 +84,16 @@ end
 
 Monomial ordering defined by `compare(a, b, order) = compare(b, a, order.reverse_order)`..
 
-Reverse Lex Order defined in [CLO15, Exercise 2.2.9, p. 61] where it is abbreviated as *rinvlex*.
+The Reverse Lex Order, corresponding to the `RevLex` order in Macaulay2,
+can be obtained as `Reverse(LexOrder())`.
+Note that this ordering is a local order, not a global one.
+
+Reverse Inverse Lex Order defined in [CLO15, Exercise 2.2.9, p. 61] where it is abbreviated as *rinvlex*.
 can be obtained as `Reverse(InverseLexOrder())`.
 
-The Graded Reverse Lex Order often abbreviated as *grevlex* order defined in [CLO15, Definition 2.2.6, p. 58]
+The Graded Reverse Inverse Lex Order often abbreviated as *grevlex* order defined in [CLO15, Definition 2.2.6, p. 58]
 can be obtained as `Graded(Reverse(InverseLexOrder()))`.
+It corresponds to the `GRevLex` order of Macaulay2
 
 [CLO13] Cox, D., Little, J., & OShea, D.
 *Ideals, varieties, and algorithms: an introduction to computational algebraic geometry and commutative algebra*.
